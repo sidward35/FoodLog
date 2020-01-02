@@ -3,7 +3,6 @@ package cf.sidward35.foodlog;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     boolean mealEntry = false;
+    int calsSum, protSum, carbsSum, fatSum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
                         if(fat3.getText().toString().isEmpty()) fat3.setText("0");
                         if(fat4.getText().toString().isEmpty()) fat4.setText("0");
 
-                        int calsSum = Integer.parseInt(cals1.getText().toString())+Integer.parseInt(cals2.getText().toString())+Integer.parseInt(cals3.getText().toString())+Integer.parseInt(cals4.getText().toString());
-                        int protSum = Integer.parseInt(prot1.getText().toString())+Integer.parseInt(prot2.getText().toString())+Integer.parseInt(prot3.getText().toString())+Integer.parseInt(prot4.getText().toString());
-                        int carbsSum = Integer.parseInt(carbs1.getText().toString())+Integer.parseInt(carbs2.getText().toString())+Integer.parseInt(carbs3.getText().toString())+Integer.parseInt(carbs4.getText().toString());
-                        int fatSum = Integer.parseInt(fat1.getText().toString())+Integer.parseInt(fat2.getText().toString())+Integer.parseInt(fat3.getText().toString())+Integer.parseInt(fat4.getText().toString());
+                        calsSum = Integer.parseInt(cals1.getText().toString())+Integer.parseInt(cals2.getText().toString())+Integer.parseInt(cals3.getText().toString())+Integer.parseInt(cals4.getText().toString());
+                        protSum = Integer.parseInt(prot1.getText().toString())+Integer.parseInt(prot2.getText().toString())+Integer.parseInt(prot3.getText().toString())+Integer.parseInt(prot4.getText().toString());
+                        carbsSum = Integer.parseInt(carbs1.getText().toString())+Integer.parseInt(carbs2.getText().toString())+Integer.parseInt(carbs3.getText().toString())+Integer.parseInt(carbs4.getText().toString());
+                        fatSum = Integer.parseInt(fat1.getText().toString())+Integer.parseInt(fat2.getText().toString())+Integer.parseInt(fat3.getText().toString())+Integer.parseInt(fat4.getText().toString());
 
                         calcButton.setVisibility(View.GONE);
 

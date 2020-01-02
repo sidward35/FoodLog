@@ -8,14 +8,15 @@
     - [ ] columns for meal type, total cals/protein/carbs/fat per meal
     - [ ] daily total listed next to date
 - [ ] new meal entry page (launched w/ FAB)
-  - [ ] meal type (B/L/D)
+  - [x] meal type (B/L/D)
   - [ ] *additional feature: if dinner selected, create checkbox for workout day (y/n)*
-  - [ ] food items ('+' button for each food item)
-    - [ ] name
-    - [ ] cals
-    - [ ] protein
-    - [ ] carbs
-    - [ ] fat
-  - [ ] total stats for all food items
+  - [x] food items ~~('+' button for each food item)~~
+    - [x] name
+    - [x] cals
+    - [x] protein
+    - [x] carbs
+    - [x] fat
+  - [x] total stats for all food items
   - [ ] note time/date (automatic from system)
   - [ ] 'finish' button
+    - [ ] create schema for data entry into file
