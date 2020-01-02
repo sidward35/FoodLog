@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         if(mealEntry){
-            onResume();
             mealEntry = false;
+            onResume();
         }
         else System.exit(0);
     }
