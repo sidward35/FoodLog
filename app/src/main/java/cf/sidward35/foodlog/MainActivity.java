@@ -10,13 +10,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -27,7 +24,7 @@ import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean mealEntry = false;
+    boolean mealEntry = false, sumCalculated = false;
     int calsSum=0, protSum=0, carbsSum=0, fatSum=0;
     final String FILENAME = "FoodLogData.txt";
 
@@ -50,19 +47,27 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception e){}
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.ic_add_white_24dp);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setContentView(R.layout.meal_entry);
                 mealEntry = true;
 
+                Toolbar toolbar2 = findViewById(R.id.toolbar2);
+                toolbar2.setTitle("Food Log");
+
                 final Button finishButton = findViewById(R.id.button);
                 finishButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        writeToFile("Totals: "+calsSum+"|"+protSum+"|"+carbsSum+"|"+fatSum);
-                        hw.setText(readFromFile());
-                        onBackPressed();
+                        if(sumCalculated){
+                            writeToFile("Totals: "+calsSum+"|"+protSum+"|"+carbsSum+"|"+fatSum);
+                            hw.setText(readFromFile());
+                            onBackPressed();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Press 'Calculate' first!", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
 
@@ -100,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 calcButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        sumCalculated = true;
+
                         if(cals1.getText().toString().isEmpty()) cals1.setText("0");
                         if(cals2.getText().toString().isEmpty()) cals2.setText("0");
                         if(cals3.getText().toString().isEmpty()) cals3.setText("0");
@@ -146,31 +153,10 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
         if(mealEntry){
             mealEntry = false;
+            sumCalculated = false;
             onResume();
         }
         else System.exit(0);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void writeToFile(String data) {

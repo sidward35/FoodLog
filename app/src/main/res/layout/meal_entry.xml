@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/textView"
@@ -10,7 +26,8 @@
         android:layout_marginTop="20sp"
         android:text="Add new meal"
         android:textAlignment="center"
-        android:textSize="36sp" />
+        android:textColor="#000000"
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -22,6 +39,7 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:baselineAligned="false">
 
         <RadioButton
@@ -63,7 +81,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="40sp"
+            android:layout_weight="30"
             android:text="Name"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -72,7 +90,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20sp"
+            android:layout_weight="17.5"
             android:text="Cals"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -81,7 +99,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20sp"
+            android:layout_weight="17.5"
             android:text="Protein"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -90,7 +108,7 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20sp"
+            android:layout_weight="17.5"
             android:text="Carbs"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -99,6 +117,7 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="17.5"
             android:text="Fat"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -113,7 +132,7 @@
             android:id="@+id/editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="5"
+            android:layout_weight="30"
             android:inputType="textPersonName"
             android:hint="Name" />
 
@@ -121,7 +140,7 @@
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Cals" />
 
@@ -129,7 +148,7 @@
             android:id="@+id/editText3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Protein" />
 
@@ -137,7 +156,7 @@
             android:id="@+id/editText4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Carbs" />
 
@@ -145,7 +164,7 @@
             android:id="@+id/editText5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Fat" />
     </LinearLayout>
@@ -159,7 +178,7 @@
             android:id="@+id/editText6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="5"
+            android:layout_weight="30"
             android:inputType="textPersonName"
             android:hint="Name" />
 
@@ -167,7 +186,7 @@
             android:id="@+id/editText7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Cals" />
 
@@ -175,7 +194,7 @@
             android:id="@+id/editText8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Protein" />
 
@@ -183,7 +202,7 @@
             android:id="@+id/editText9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Carbs" />
 
@@ -191,7 +210,7 @@
             android:id="@+id/editText10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Fat" />
     </LinearLayout>
@@ -205,7 +224,7 @@
             android:id="@+id/editText11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="5"
+            android:layout_weight="30"
             android:inputType="textPersonName"
             android:hint="Name" />
 
@@ -213,7 +232,7 @@
             android:id="@+id/editText12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Cals" />
 
@@ -221,7 +240,7 @@
             android:id="@+id/editText13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Protein" />
 
@@ -229,7 +248,7 @@
             android:id="@+id/editText14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Carbs" />
 
@@ -237,7 +256,7 @@
             android:id="@+id/editText15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Fat" />
     </LinearLayout>
@@ -251,7 +270,7 @@
             android:id="@+id/editText16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="5"
+            android:layout_weight="30"
             android:inputType="textPersonName"
             android:hint="Name" />
 
@@ -259,7 +278,7 @@
             android:id="@+id/editText17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Cals" />
 
@@ -267,7 +286,7 @@
             android:id="@+id/editText18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Protein" />
 
@@ -275,7 +294,7 @@
             android:id="@+id/editText19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Carbs" />
 
@@ -283,7 +302,7 @@
             android:id="@+id/editText20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="2"
+            android:layout_weight="17.5"
             android:inputType="number"
             android:hint="Fat" />
     </LinearLayout>
@@ -297,7 +316,7 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="50sp"
+            android:layout_weight="30"
             android:text="Total"
             android:textSize="18sp" />
 
@@ -305,14 +324,14 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="70"
             android:text="Calculate" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="40sp"
+            android:layout_weight="17.5"
             android:text="0"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -321,7 +340,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="40sp"
+            android:layout_weight="17.5"
             android:text="0"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -330,7 +349,7 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="40sp"
+            android:layout_weight="17.5"
             android:text="0"
             android:textColor="#000000"
             android:textSize="18sp" />
@@ -339,6 +358,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="17.5"
             android:text="0"
             android:textColor="#000000"
             android:textSize="18sp" />

@@ -19,4 +19,6 @@
   - [x] total stats for all food items
   - [ ] note time/date (automatic from system)
   - [ ] 'finish' button
+    - [x] check that total nutrients have been calculated
+    - [ ] check that meal type has been entered
     - [ ] create schema for data entry into file
