@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +22,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean mealEntry = false, sumCalculated = false;
     int calsSum=0, protSum=0, carbsSum=0, fatSum=0;
+    String mealType = "";
     final String FILENAME = "FoodLogData.txt";
 
     @Override
@@ -57,14 +61,42 @@ public class MainActivity extends AppCompatActivity {
                 Toolbar toolbar2 = findViewById(R.id.toolbar2);
                 toolbar2.setTitle("Food Log");
 
+                final RadioButton bfChoice = findViewById(R.id.radioButton);
+                final RadioButton lChoice = findViewById(R.id.radioButton2);
+                final RadioButton dChoice = findViewById(R.id.radioButton3);
+
+                bfChoice.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mealType = "Breakfast";
+                    }
+                });
+
+                lChoice.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mealType = "Lunch";
+                    }
+                });
+
+                dChoice.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mealType = "Dinner";
+                    }
+                });
+
                 final Button finishButton = findViewById(R.id.button);
                 finishButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(sumCalculated){
-                            writeToFile("Totals: "+calsSum+"|"+protSum+"|"+carbsSum+"|"+fatSum);
+                        if(sumCalculated && !mealType.equals("")){
+                            String date = getCurrentTimeStamp();
+                            writeToFile(date+" | "+mealType+" | "+calsSum+" | "+protSum+" | "+carbsSum+" | "+fatSum);
                             hw.setText(readFromFile());
                             onBackPressed();
+                        }else if(mealType.equals("")){
+                            Toast.makeText(getApplicationContext(), "Please specify meal type!", Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(getApplicationContext(), "Press 'Calculate' first!", Toast.LENGTH_LONG).show();
                         }
@@ -154,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         if(mealEntry){
             mealEntry = false;
             sumCalculated = false;
+            mealType = "";
             onResume();
         }
         else System.exit(0);
@@ -198,5 +231,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return ret;
+    }
+
+    public static String getCurrentTimeStamp() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate;
     }
 }
