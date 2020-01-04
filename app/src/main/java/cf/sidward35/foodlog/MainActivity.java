@@ -1,11 +1,14 @@
 package cf.sidward35.foodlog;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import android.os.Environment;
 import android.util.Log;
@@ -47,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "Please enable storage write permission!", Toast.LENGTH_LONG).show();
+            //replace with permission request
+        }
 
         File folder = new File(extStorageDirectory, FOLDERNAME);
         folder.mkdir();
@@ -105,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                         if(sumCalculated && !mealType.equals("")){
                             String date = getCurrentTimeStamp();
                             writeToFile(date+" | "+mealType+" | "+calsSum+" | "+protSum+" | "+carbsSum+" | "+fatSum+"\n", file);
-                            hw.setText(readFromFile(file));
                             onBackPressed();
                         }else if(mealType.equals("")){
                             Toast.makeText(getApplicationContext(), "Please specify meal type!", Toast.LENGTH_LONG).show();

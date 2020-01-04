@@ -3,6 +3,7 @@
 
 ### TODO
 - [ ] home page
+  - [ ] request read/write storage permission
   - [ ] meals organized by date (most recent first; refer to money tracker app for layout)
     - [ ] breakfast, lunch, dinner in order
     - [ ] columns for meal type, total cals/protein/carbs/fat per meal
