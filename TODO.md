@@ -7,7 +7,7 @@
     - [ ] breakfast, lunch, dinner in order
     - [ ] columns for meal type, total cals/protein/carbs/fat per meal
     - [ ] daily total listed next to date
-- [ ] new meal entry page (launched w/ FAB)
+- [x] new meal entry page (launched w/ FAB)
   - [x] meal type (B/L/D)
   - [ ] *additional feature: if dinner selected, create checkbox for workout day (y/n)*
   - [x] food items ~~('+' button for each food item)~~
@@ -18,7 +18,8 @@
     - [x] fat
   - [x] total stats for all food items
   - [x] note time/date (automatic from system)
-  - [ ] 'finish' button
+  - [x] 'finish' button
     - [x] check that total nutrients have been calculated
     - [x] check that meal type has been entered
-    - [ ] create schema for data entry into file
+    - [x] create schema for data entry into file
+      - [ ] ~~work with [apache poi](https://github.com/centic9/poi-on-android) for excel file IO~~

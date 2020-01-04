@@ -1,6 +1,5 @@
 package cf.sidward35.foodlog;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -8,6 +7,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     boolean mealEntry = false, sumCalculated = false;
     int calsSum=0, protSum=0, carbsSum=0, fatSum=0;
     String mealType = "";
-    final String FILENAME = "FoodLogData.txt";
+    final String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+    final String FOLDERNAME = "FoodLogApp", FILENAME = "FoodLogData.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +48,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        File folder = new File(extStorageDirectory, FOLDERNAME);
+        folder.mkdir();
+        final File file = new File(folder, FILENAME);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         final TextView hw = findViewById(R.id.helloworld);
         try {
-            hw.setText(readFromFile());
+            hw.setText(readFromFile(file));
         }catch(Exception e){}
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -92,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if(sumCalculated && !mealType.equals("")){
                             String date = getCurrentTimeStamp();
-                            writeToFile(date+" | "+mealType+" | "+calsSum+" | "+protSum+" | "+carbsSum+" | "+fatSum);
-                            hw.setText(readFromFile());
+                            writeToFile(date+" | "+mealType+" | "+calsSum+" | "+protSum+" | "+carbsSum+" | "+fatSum+"\n", file);
+                            hw.setText(readFromFile(file));
                             onBackPressed();
                         }else if(mealType.equals("")){
                             Toast.makeText(getApplicationContext(), "Please specify meal type!", Toast.LENGTH_LONG).show();
@@ -192,23 +204,23 @@ public class MainActivity extends AppCompatActivity {
         else System.exit(0);
     }
 
-    private void writeToFile(String data) {
+    private void writeToFile(String data, File file) {
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(FILENAME, Context.MODE_PRIVATE));
-            outputStreamWriter.append(data);
-            outputStreamWriter.close();
+            FileOutputStream fileOut = new FileOutputStream(file, true);
+            fileOut.write(data.getBytes());
+            fileOut.close();
         }
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 
-    private String readFromFile() {
+    private String readFromFile(File file) {
 
         String ret = "";
 
         try {
-            InputStream inputStream = openFileInput(FILENAME);
+            InputStream inputStream = new FileInputStream(file);
 
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -217,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
 
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
+                    stringBuilder.append(receiveString+"\n");
                 }
 
                 inputStream.close();
