@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     String mealType = "";
     final String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
     final String FOLDERNAME = "FoodLogApp", FILENAME = "FoodLogData.txt";
+    final int CALSMAX = 2452, PROTEINMAX = 158, CARBSMAX = 165, FATMAX = 60;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -267,15 +268,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateHomePage(File file) {
-        TextView hw = findViewById(R.id.helloworld);
+        TextView calsText = findViewById(R.id.cals_text);
+        TextView protText = findViewById(R.id.prot_text);
+        TextView carbsText = findViewById(R.id.carbs_text);
+        TextView fatText = findViewById(R.id.fat_text);
+
+        calsText.setText("Cals: 0/"+CALSMAX);
+        protText.setText("Protein: 0/"+PROTEINMAX+"g");
+        carbsText.setText("Carbs: 0/"+CARBSMAX+"g");
+        fatText.setText("Fat: 0/"+FATMAX+"g");
+
         ProgressBar calsBar = findViewById(R.id.progressBar);
-        calsBar.setMax(2452);
+        calsBar.setMax(CALSMAX);
         ProgressBar protBar = findViewById(R.id.progressBar2);
-        protBar.setMax(158);
+        protBar.setMax(PROTEINMAX);
         ProgressBar carbsBar = findViewById(R.id.progressBar3);
-        carbsBar.setMax(165);
+        carbsBar.setMax(CARBSMAX);
         ProgressBar fatBar = findViewById(R.id.progressBar4);
-        fatBar.setMax(60);
+        fatBar.setMax(FATMAX);
 
         String todayData = readFromFile(file);
         String[] todayLines = todayData.split("\n");
@@ -286,7 +296,11 @@ public class MainActivity extends AppCompatActivity {
             todayCarbs+=Integer.parseInt(str.substring(ordinalIndexOf(str, "|", 4)+2, ordinalIndexOf(str, "|", 5)-1));
             todayFat+=Integer.parseInt(str.substring(ordinalIndexOf(str, "|", 5)+2));
         }
-        hw.setText("Cals: "+todayCals+"/2452 | Protein: "+todayProt+"/158g\nCarbs: "+todayCarbs+"/165g | Fat: "+todayFat+"/60g");
+
+        calsText.setText("Cals: "+todayCals+"/"+CALSMAX);
+        protText.setText("Protein: "+todayProt+"/"+PROTEINMAX+"g");
+        carbsText.setText("Carbs: "+todayCarbs+"/"+CARBSMAX+"g");
+        fatText.setText("Fat: "+todayFat+"/"+FATMAX+"g");
 
         calsBar.setProgress(todayCals);
         protBar.setProgress(todayProt);

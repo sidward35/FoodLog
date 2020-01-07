@@ -2,17 +2,18 @@
 ### *purpose: to keep track of daily meals (breakfast, lunch, dinner) and nutrition (calories, protein, carbs, fat)*
 
 ### TODO
-- [ ] home page
+- [x] home page
   - [x] request read/write storage permission
   - [x] progress bar for each type of nutrient, with today's progress
     - [x] raw numbers also displayed
+    - [Android Tutorial: Customize a Progress Bar](https://www.youtube.com/watch?v=NKcSC60x2j0)
   - [ ] ~~meals organized by date (most recent first; refer to money tracker app for layout)~~
     - [ ] ~~breakfast, lunch, dinner in order~~
     - [ ] ~~columns for meal type, total cals/protein/carbs/fat per meal~~
     - [ ] ~~daily total listed next to date~~
 - [x] new meal entry page (launched w/ FAB)
   - [x] meal type (B/L/D)
-  - [ ] *additional feature: if dinner selected, create checkbox for workout day (y/n)*
+  - [ ] ~~*additional feature: if dinner selected, create checkbox for workout day (y/n)*~~
   - [x] food items ~~('+' button for each food item)~~
     - [x] name
     - [x] cals

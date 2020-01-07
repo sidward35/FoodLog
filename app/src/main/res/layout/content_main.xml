@@ -14,35 +14,93 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/helloworld"
+            android:id="@+id/cals_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="5dp"
             android:text="No entries yet!"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:minHeight="23dp"
+            android:maxHeight="23dp"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:progressDrawable="@drawable/rg_gradient" />
+
+        <TextView
+            android:id="@+id/prot_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="5dp"
+            android:text="No entries yet!"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <ProgressBar
             android:id="@+id/progressBar2"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:minHeight="23dp"
+            android:maxHeight="23dp"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:progressDrawable="@drawable/rg_gradient" />
+
+        <TextView
+            android:id="@+id/carbs_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="5dp"
+            android:text="No entries yet!"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <ProgressBar
             android:id="@+id/progressBar3"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:minHeight="23dp"
+            android:maxHeight="23dp"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:progressDrawable="@drawable/rg_gradient" />
+
+        <TextView
+            android:id="@+id/fat_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginBottom="5dp"
+            android:text="No entries yet!"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <ProgressBar
             android:id="@+id/progressBar4"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:minHeight="23dp"
+            android:maxHeight="23dp"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:progressDrawable="@drawable/gr_gradient" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
