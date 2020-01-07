@@ -7,4 +7,4 @@ Android app to keep track of daily meals (breakfast, lunch, dinner) and nutritio
 2. Meal entry page
 3. Total nutrition automatically calculated
 
-<img src="https://i.imgur.com/yIqV9Cs.jpg" alt="drawing" width="250"/> <img src="https://i.imgur.com/ugSUK81.jpg" alt="drawing" width="250"/> <img src="https://i.imgur.com/SEqziV4.jpg" alt="drawing" width="250"/>
+<img src="https://i.imgur.com/71vW1WO.png" alt="drawing" width="250"/> <img src="https://i.imgur.com/uHSWng3.png" alt="drawing" width="250"/> <img src="https://i.imgur.com/ABjNAvd.png" alt="drawing" width="250"/>
