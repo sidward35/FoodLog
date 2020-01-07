@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,10 +53,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "Please enable storage write permission!", Toast.LENGTH_LONG).show();
-            //replace with permission request
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "Please enable storage read/write permission!", Toast.LENGTH_LONG).show();
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
 
         File folder = new File(extStorageDirectory, FOLDERNAME);
@@ -66,9 +69,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        final TextView hw = findViewById(R.id.helloworld);
         try {
-            hw.setText(readFromFile(file));
+            updateHomePage(file);
         }catch(Exception e){}
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -235,10 +237,14 @@ public class MainActivity extends AppCompatActivity {
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString = "";
                 StringBuilder stringBuilder = new StringBuilder();
+                ArrayList<String> lines = new ArrayList<String>();
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString+"\n");
-                }
+                while ( (receiveString = bufferedReader.readLine()) != null )
+                    lines.add(receiveString);
+
+                for(int x=lines.size()-1; x>=0; x--)
+                    if(lines.get(x).substring(0, 10).equals(getCurrentTimeStamp().substring(0, 10)))
+                        stringBuilder.append(lines.get(x)+"\n");
 
                 inputStream.close();
                 ret = stringBuilder.toString();
@@ -258,5 +264,40 @@ public class MainActivity extends AppCompatActivity {
         Date now = new Date();
         String strDate = sdfDate.format(now);
         return strDate;
+    }
+
+    private void updateHomePage(File file) {
+        TextView hw = findViewById(R.id.helloworld);
+        ProgressBar calsBar = findViewById(R.id.progressBar);
+        calsBar.setMax(2452);
+        ProgressBar protBar = findViewById(R.id.progressBar2);
+        protBar.setMax(158);
+        ProgressBar carbsBar = findViewById(R.id.progressBar3);
+        carbsBar.setMax(165);
+        ProgressBar fatBar = findViewById(R.id.progressBar4);
+        fatBar.setMax(60);
+
+        String todayData = readFromFile(file);
+        String[] todayLines = todayData.split("\n");
+        int todayCals = 0, todayProt = 0, todayCarbs = 0, todayFat = 0;
+        for(String str:todayLines){
+            todayCals+=Integer.parseInt(str.substring(ordinalIndexOf(str, "|", 2)+2, ordinalIndexOf(str, "|", 3)-1));
+            todayProt+=Integer.parseInt(str.substring(ordinalIndexOf(str, "|", 3)+2, ordinalIndexOf(str, "|", 4)-1));
+            todayCarbs+=Integer.parseInt(str.substring(ordinalIndexOf(str, "|", 4)+2, ordinalIndexOf(str, "|", 5)-1));
+            todayFat+=Integer.parseInt(str.substring(ordinalIndexOf(str, "|", 5)+2));
+        }
+        hw.setText("Cals: "+todayCals+"/2452 | Protein: "+todayProt+"/158g\nCarbs: "+todayCarbs+"/165g | Fat: "+todayFat+"/60g");
+
+        calsBar.setProgress(todayCals);
+        protBar.setProgress(todayProt);
+        carbsBar.setProgress(todayCarbs);
+        fatBar.setProgress(todayFat);
+    }
+
+    public int ordinalIndexOf(String str, String substr, int n) {
+        int pos = str.indexOf(substr);
+        while (--n > 0 && pos != -1)
+            pos = str.indexOf(substr, pos + 1);
+        return pos;
     }
 }
