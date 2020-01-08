@@ -1,6 +1,7 @@
 package cf.sidward35.foodlog;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -12,6 +13,8 @@ import androidx.core.app.ActivityCompat;
 
 import android.os.Environment;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,18 +31,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean mealEntry = false, sumCalculated = false;
+    boolean mealEntry = false, sumCalculated = false, settingsOpen = false;
     int calsSum=0, protSum=0, carbsSum=0, fatSum=0;
     String mealType = "";
     final String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
     final String FOLDERNAME = "FoodLogApp", FILENAME = "FoodLogData.txt";
-    final int CALSMAX = 2452, PROTEINMAX = 158, CARBSMAX = 165, FATMAX = 60;
+    int CALSMAX = 2452, PROTEINMAX = 158, CARBSMAX = 165, FATMAX = 60;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,8 +215,71 @@ public class MainActivity extends AppCompatActivity {
             sumCalculated = false;
             mealType = "";
             onResume();
+        }else if(settingsOpen){
+            settingsOpen = false;
+            onResume();
         }
         else System.exit(0);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            setContentView(R.layout.app_settings);
+            settingsOpen = true;
+            Toolbar toolbar3 = findViewById(R.id.toolbar3);
+            toolbar3.setTitle("Food Log");
+
+            final EditText calsSetting = findViewById(R.id.editTextCalsSetting);
+            final EditText protSetting = findViewById(R.id.editTextProtSetting);
+            final EditText carbsSetting = findViewById(R.id.editTextCarbsSetting);
+            final EditText fatSetting = findViewById(R.id.editTextFatSetting);
+            calsSetting.setHint(CALSMAX+"");
+            protSetting.setHint(PROTEINMAX+"");
+            carbsSetting.setHint(CARBSMAX+"");
+            fatSetting.setHint(FATMAX+"");
+
+            Button resetSettings = findViewById(R.id.button4);
+            resetSettings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    calsSetting.setText("2452");
+                    protSetting.setText("158");
+                    carbsSetting.setText("165");
+                    fatSetting.setText("60");
+                }
+            });
+
+            Button saveSettings = findViewById(R.id.button3);
+            saveSettings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ArrayList<Integer> newSettings = new ArrayList<Integer>();
+                    if(!calsSetting.getText().toString().isEmpty()) CALSMAX = Integer.parseInt(calsSetting.getText().toString());
+                    if(!protSetting.getText().toString().isEmpty()) PROTEINMAX = Integer.parseInt(protSetting.getText().toString());
+                    if(!carbsSetting.getText().toString().isEmpty()) CARBSMAX = Integer.parseInt(carbsSetting.getText().toString());
+                    if(!fatSetting.getText().toString().isEmpty()) FATMAX = Integer.parseInt(fatSetting.getText().toString());
+                    newSettings.add(CALSMAX);
+                    newSettings.add(PROTEINMAX);
+                    newSettings.add(CARBSMAX);
+                    newSettings.add(FATMAX);
+                    writeSettings(newSettings);
+                    onBackPressed();
+                }
+            });
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void writeToFile(String data, File file) {
@@ -273,6 +340,8 @@ public class MainActivity extends AppCompatActivity {
         TextView carbsText = findViewById(R.id.carbs_text);
         TextView fatText = findViewById(R.id.fat_text);
 
+        readSettings();
+
         calsText.setText("Cals: 0/"+CALSMAX);
         protText.setText("Protein: 0/"+PROTEINMAX+"g");
         carbsText.setText("Carbs: 0/"+CARBSMAX+"g");
@@ -313,5 +382,46 @@ public class MainActivity extends AppCompatActivity {
         while (--n > 0 && pos != -1)
             pos = str.indexOf(substr, pos + 1);
         return pos;
+    }
+
+    private void writeSettings(ArrayList<Integer> goals){
+        String data = "";
+        for(int n:goals)
+            data+=(n+"\n");
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("settings", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    private void readSettings(){
+        try {
+            InputStream inputStream = openFileInput("settings");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                ArrayList<String> lines = new ArrayList<String>();
+
+                while ((receiveString = bufferedReader.readLine()) != null)
+                    lines.add(receiveString);
+
+                inputStream.close();
+                CALSMAX = Integer.parseInt(lines.get(0));
+                PROTEINMAX = Integer.parseInt(lines.get(1));
+                CARBSMAX = Integer.parseInt(lines.get(2));
+                FATMAX = Integer.parseInt(lines.get(3));
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
     }
 }
