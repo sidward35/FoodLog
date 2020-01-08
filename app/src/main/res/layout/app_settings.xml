@@ -53,7 +53,7 @@
             android:id="@+id/editTextCalsSetting"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -74,7 +74,7 @@
             android:id="@+id/editTextProtSetting"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -95,7 +95,7 @@
             android:id="@+id/editTextCarbsSetting"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -116,7 +116,7 @@
             android:id="@+id/editTextFatSetting"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
     </LinearLayout>
 
