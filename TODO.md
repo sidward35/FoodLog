@@ -2,7 +2,7 @@
 ### *purpose: to keep track of daily meals (breakfast, lunch, dinner) and nutrition (calories, protein, carbs, fat)*
 
 ### TODO
-- [x] home page
+- [ ] home page
   - [x] request read/write storage permission
   - [x] progress bar for each type of nutrient, with today's progress
     - [x] raw numbers also displayed
@@ -11,7 +11,12 @@
     - [ ] ~~breakfast, lunch, dinner in order~~
     - [ ] ~~columns for meal type, total cals/protein/carbs/fat per meal~~
     - [ ] ~~daily total listed next to date~~
-- [x] new meal entry page (launched w/ FAB)
+  - [ ] arrow buttons on bottom of home page to see previous days' progress
+- [ ] new meal entry page (launched w/ FAB)
+  - [ ] add 'snack' meal type
+  - [ ] stay on page if app closed
+  - [ ] ~~add 'cancel' button at right end of appbar~~
+  - [ ] ~~log food names~~
   - [x] meal type (B/L/D)
   - [ ] ~~*additional feature: if dinner selected, create checkbox for workout day (y/n)*~~
   - [x] food items ~~('+' button for each food item)~~
